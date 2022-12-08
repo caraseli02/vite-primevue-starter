@@ -13,8 +13,10 @@ declare module '@vue/runtime-core' {
     AppProfile: typeof import('./components/app/AppProfile.vue')['default']
     AppSubmenu: typeof import('./components/app/AppSubmenu.vue')['default']
     AppTopbar: typeof import('./components/app/AppTopbar.vue')['default']
-    Foo: typeof import('./components/basic/Foo.vue')['default']
-    Hello: typeof import('./components/basic/Hello.vue')['default']
+    Button: typeof import('./components/Atoms/buttons/Button.vue')['default']
+    'Button.story': typeof import('./components/Atoms/buttons/Button.story.vue')['default']
+    Checkbox: typeof import('./components/Atoms/checkbox/Checkbox.vue')['default']
+    'Checkbox.story': typeof import('./components/Atoms/checkbox/Checkbox.story.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

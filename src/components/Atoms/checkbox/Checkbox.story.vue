@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import Checkbox from './Checkbox.vue';
+import { ref } from 'vue'
+import Checkbox from './Checkbox.vue'
 
-const checked = ref(false);
-const cities = ref([]);
+const checked = ref(false)
+const cities = ref([])
 const categories = ref([
   { name: 'Accounting', key: 'A' },
   { name: 'Marketing', key: 'M' },
   { name: 'Production', key: 'P' },
   { name: 'Research', key: 'R' },
-]);
-const selectedCategories = ref(categories.value.slice(1, 3));
+])
+const selectedCategories = ref(categories.value.slice(1, 3))
 </script>
 
 <template>

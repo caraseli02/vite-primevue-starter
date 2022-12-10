@@ -20,6 +20,9 @@ const selectedCategories = ref(categories.value.slice(1, 3))
         <Checkbox v-model="checked" input-id="binary" :binary="true" />
         <label for="binary">{{ checked }}</label>
       </div>
+      <template #controls>
+        <HstCheckbox v-model="checked" title="Checked" />
+      </template>
     </Variant>
     <Variant title="Multiple">
       <div class="field-checkbox">
@@ -38,6 +41,7 @@ const selectedCategories = ref(categories.value.slice(1, 3))
         <Checkbox v-model="cities" input-id="city4" name="city" value="San Francisco" />
         <label for="city4">San Francisco</label>
       </div>
+      <template #controls />
     </Variant>
     <Variant title="Dynamic Values, Preselection, Value Binding and Disabled Option">
       <div v-for="category of categories" :key="category.key" class="field-checkbox">
@@ -45,11 +49,12 @@ const selectedCategories = ref(categories.value.slice(1, 3))
           v-model="selectedCategories"
           :input-id="category.key"
           name="category"
-          :value="category.name"
+          :value="category"
           :disabled="category.key === 'R'"
         />
         <label :for="category.key">{{ category.name }}</label>
       </div>
+      <template #controls />
     </Variant>
   </Story>
 </template>

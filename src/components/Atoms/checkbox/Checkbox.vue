@@ -1,24 +1,24 @@
 <script lang="ts" setup>
-import { ObjectUtils } from 'primevue/utils'
-import type { InputHTMLAttributes, StyleValue } from 'vue'
+import { ObjectUtils } from 'primevue/utils';
+import type { InputHTMLAttributes, StyleValue } from 'vue';
 
 export interface Props {
-  value?: unknown
-  modelValue?: unknown | unknown[]
-  name?: string
-  binary?: boolean
-  disabled?: boolean
-  readonly?: boolean
-  required?: boolean
-  tabindex?: number
-  trueValue?: any
-  falseValue?: any
-  inputId?: string
-  inputClass?: unknown
-  inputStyle?: StyleValue
-  inputProps?: InputHTMLAttributes
-  ariaLabelledby?: string
-  ariaLabel?: string
+  value?: unknown;
+  modelValue?: boolean | unknown[];
+  name?: string;
+  binary?: boolean;
+  disabled?: boolean;
+  readonly?: boolean;
+  required?: boolean;
+  tabindex?: number;
+  trueValue?: any;
+  falseValue?: any;
+  inputId?: string;
+  inputClass?: unknown;
+  inputStyle?: StyleValue;
+  inputProps?: InputHTMLAttributes;
+  ariaLabelledby?: string;
+  ariaLabel?: string;
 }
 const props = withDefaults(defineProps<Props>(), {
   trueValue: true,
@@ -26,25 +26,28 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: false,
   readonly: false,
   required: false,
-})
+});
 
 const emit = defineEmits<{
-  (e: 'click', event: MouseEvent): void
-  (e: 'update:modelValue', value: unknown): void
-  (e: 'change', value: unknown): void
-  (e: 'input', value: unknown): void
-  (e: 'focus', value: unknown): void
-  (e: 'blur', value: unknown): void
-}>()
+  (e: 'click', event: MouseEvent): void;
+  (e: 'update:modelValue', value: unknown): void;
+  (e: 'change', value: unknown): void;
+  (e: 'input', value: unknown): void;
+  (e: 'focus', value: unknown): void;
+  (e: 'blur', value: unknown): void;
+}>();
 
-const focused = ref(false)
-const inputRef = ref<HTMLInputElement | null>(null)
+const focused = ref(false);
+const inputRef = ref<HTMLInputElement | null>(null);
 
 const checked = computed(() => {
-  return props.binary
-    ? props.modelValue === props.trueValue
-    : ObjectUtils.contains(props.value, props.modelValue as unknown[])
-})
+  if (props.binary) {
+    return props.modelValue === props.trueValue;
+  } else {
+    return (props.modelValue as unknown[]).includes(props.value as unknown);
+  }
+});
+
 const containerClass = computed(() => {
   return [
     'p-checkbox p-component',
@@ -53,40 +56,39 @@ const containerClass = computed(() => {
       'p-checkbox-disabled': props.disabled,
       'p-checkbox-focused': focused,
     },
-  ]
-})
+  ];
+});
 
 function onClick(event: MouseEvent) {
   if (!props.disabled) {
-    let newModelValue: unknown
+    let newModelValue: unknown;
 
     if (props.binary) {
-      newModelValue = checked ? props.falseValue : props.trueValue
-    }
-    else {
-      if (checked) {
+      newModelValue = checked.value ? props.falseValue : props.trueValue;
+    } else {
+      if (checked.value) {
         newModelValue = (props.modelValue as unknown[]).filter(
-          (val: unknown) => !ObjectUtils.deepEquals(val, props.value),
-        )
+          (val: unknown) => !ObjectUtils.deepEquals(val, props.value)
+        );
+      } else {
+        newModelValue = props.modelValue ? [...(props.modelValue as unknown[]), props.value] : [props.value];
       }
-      else { newModelValue = props.modelValue ? [...(props.modelValue as unknown[]), props.value] : [props.value] }
     }
 
-    emit('click', event)
-    emit('update:modelValue', newModelValue)
-    emit('change', event)
-    emit('input', newModelValue)
-    if (inputRef.value)
-      inputRef.value.focus()
+    emit('click', event);
+    emit('update:modelValue', newModelValue);
+    emit('change', event);
+    emit('input', newModelValue);
+    if (inputRef.value) inputRef.value.focus();
   }
 }
 function onFocus(event: boolean) {
-  focused.value = true
-  emit('focus', event)
+  focused.value = true;
+  emit('focus', event);
 }
 function onBlur(event: boolean) {
-  focused.value = false
-  emit('blur', event)
+  focused.value = false;
+  emit('blur', event);
 }
 </script>
 
@@ -111,7 +113,7 @@ function onBlur(event: boolean) {
         v-bind="inputProps"
         @focus="onFocus($event)"
         @blur="onBlur($event)"
-      >
+      />
     </div>
     <div
       ref="box"

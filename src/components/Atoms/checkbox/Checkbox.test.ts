@@ -1,28 +1,66 @@
 import { mount } from '@vue/test-utils'
+import { describe, expect, test, vi } from 'vitest'
 import Checkbox from './Checkbox.vue'
 
 describe('Checkbox.vue', () => {
-  let wrapper
+  test('should render the checkbox element', () => {
+    const wrapper = mount(Checkbox)
+    expect(wrapper.find('.p-checkbox.p-component').exists()).toBe(true)
+  })
 
-  beforeEach(() => {
-    wrapper = mount(Checkbox, {
+  test('should not apply the p-checkbox-checked class when modelValue prop is false', () => {
+    const wrapper = mount(Checkbox, {
       props: {
         modelValue: false,
-        binary: true,
       },
     })
+    expect(wrapper.classes()).not.toContain('p-checkbox-checked')
   })
 
-  it('should exist', () => {
-    expect(wrapper.find('.p-checkbox.p-component').exists()).toBe(true)
-    expect(wrapper.find('.p-checkbox-icon.pi.pi-check').exists()).toBe(false)
+  test('should apply the p-checkbox-checked class when modelValue prop is true', () => {
+    const wrapper = mount(Checkbox, {
+      props: {
+        modelValue: true,
+      },
+    })
+    expect(wrapper.classes()).toContain('p-checkbox-checked')
   })
 
-  it('should exist', async () => {
-    await wrapper.setProps({ modelValue: true })
+  test('should apply the p-checkbox-disabled class when disabled prop is true', () => {
+    const wrapper = mount(Checkbox, {
+      props: {
+        disabled: true,
+      },
+    })
+    expect(wrapper.classes()).toContain('p-checkbox-disabled')
+  })
 
-    expect(wrapper.find('.p-checkbox-checked').exists()).toBe(true)
-    expect(wrapper.find('.p-checkbox-box.p-highlight').exists()).toBe(true)
-    expect(wrapper.find('.p-checkbox-icon.pi.pi-check').exists()).toBe(true)
+  test('should apply the p-checkbox-focused class when input element is focused', async () => {
+    const wrapper = mount(Checkbox)
+    await wrapper.find('input').trigger('focus')
+    expect(wrapper.classes()).toContain('p-checkbox-focused')
+  })
+
+  test('should not apply the p-checkbox-focused class when input element is blurred', async () => {
+    const wrapper = mount(Checkbox)
+    await wrapper.find('input').trigger('focus')
+    await wrapper.find('input').trigger('blur')
+    expect(wrapper.classes()).not.toContain('p-checkbox-focused')
+  })
+
+  test('should emit a "click" event when the checkbox is clicked', async () => {
+    const wrapper = mount(Checkbox)
+    const clickHandler = vi.fn()
+    wrapper.vm.$on('click', clickHandler)
+    await wrapper.find('.p-checkbox.p-component').trigger('click')
+    expect(clickHandler).toHaveBeenCalled()
+  })
+
+  test('should emit a "update:modelValue" event when the checkbox is clicked', async () => {
+    const wrapper = mount(Checkbox)
+    const updateHandler = vi.fn()
+    wrapper.vm.$on('update:modelValue', updateHandler)
+    await wrapper.find('.p-checkbox.p-component').trigger('click')
+    expect(updateHandler).toHaveBeenCalled()
   })
 })

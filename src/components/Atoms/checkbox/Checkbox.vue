@@ -45,7 +45,7 @@ const checked = computed(() => {
     return props.modelValue === props.trueValue
 
   else
-    return (props.modelValue as unknown[]).includes(props.value as unknown)
+    return Array.isArray(props.modelValue) && (props.modelValue as unknown[]).includes(props.value as unknown)
 })
 
 const containerClass = computed(() => {

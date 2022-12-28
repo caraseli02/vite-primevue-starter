@@ -21,7 +21,7 @@ const templateOptions = ref(['google', 'youtube', 'vimeo', 'facebook', 'twitter'
 </script>
 
 <template>
-  <Story title="Buttons" :layout="{ type: 'grid', width: '400px' }">
+  <Story title="Atom Buttons" :layout="{ type: 'grid', width: '400px' }">
     <Variant title="Basic">
       <Button class="m-2" label="Submit" />
       <Button class="m-2" label="Disabled" :disabled="isDissabled" />

@@ -14,7 +14,7 @@ const selectedCategories = ref(categories.value.slice(1, 3))
 </script>
 
 <template>
-  <Story title="Checkbox" :layout="{ type: 'grid', width: '400px' }">
+  <Story title="Atom Checkbox" :layout="{ type: 'grid', width: '400px' }">
     <Variant title="Basic">
       <div class="field-checkbox">
         <Checkbox v-model="checked" input-id="binary" :binary="true" />

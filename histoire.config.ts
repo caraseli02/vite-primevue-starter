@@ -12,7 +12,11 @@ export default defineConfig({
       },
       {
         title: 'Atoms',
-        include: file => !file.title.includes('Atom'),
+        include: file => file.title.includes('Atom'),
+      },
+      {
+        title: 'Molecules',
+        include: file => file.title.includes('Molecules'),
       },
     ],
   },

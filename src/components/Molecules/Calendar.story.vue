@@ -89,21 +89,26 @@ const manualInput = ref(false)
       </Variant>
       <Variant title="Button Bar" class="field col-12 md:col-4">
         <Calendar v-model="date6" input-id="buttonbar" :show-button-bar="true" />
+        <template #controls />
       </Variant>
       <Variant title="Time / 24h" class="field col-12 md:col-4">
         <Calendar v-model="date7" input-id="time24" :show-time="true" :show-seconds="true" />
+        <template #controls />
       </Variant>
       <Variant title="Time / 12h" class="field col-12 md:col-4">
         <Calendar v-model="date8" input-id="time12" :time-only="true" hour-format="12" />
+        <template #controls />
       </Variant>
       <Variant title="Month Picker" class="field col-12 md:col-4">
         <Calendar v-model="date9" input-id="monthpicker" view="month" date-format="mm/yy" />
       </Variant>
       <Variant title="Year Picker" class="field col-12 md:col-4">
         <Calendar v-model="date10" input-id="yearpicker" view="year" date-format="yy" />
+        <template #controls />
       </Variant>
       <Variant title="Multiple Months" class="field col-12 md:col-4">
         <Calendar v-model="date11" input-id="multiplemonths" :number-of-months="3" :responsive-options="responsiveOptions" />
+        <template #controls />
       </Variant>
       <Variant title="Date Template" class="field col-12 md:col-4">
         <Calendar v-model="date12" input-id="datetemplate">
@@ -114,13 +119,16 @@ const manualInput = ref(false)
             </template>
           </template>
         </Calendar>
+        <template #controls />
       </Variant>
       <Variant title="TouchUI" class="field col-12 md:col-4">
         <Calendar v-model="date13" input-id="touchUI" :touch-u-i="true" />
+        <template #controls />
       </Variant>
     </div>
     <Variant title="Inline" class="field col-12 md:col-4">
       <Calendar v-model="date14" :inline="true" :show-week="true" />
+      <template #controls />
     </Variant>
   </Story>
 </template>

@@ -26,6 +26,8 @@ declare module '@vue/runtime-core' {
     Password: typeof import('primevue/password')['default']
     Register: typeof import('./components/Molecules/Register/Register.vue')['default']
     'Register.story': typeof import('./components/Molecules/Register/Register.story.vue')['default']
+    RegisterDialog: typeof import('./components/Atoms/registerDialog/RegisterDialog.vue')['default']
+    'RegisterDialog.story': typeof import('./components/Atoms/registerDialog/RegisterDialog.story.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

@@ -1,57 +1,55 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
-import { email, required } from '@vuelidate/validators'
-import { useVuelidate } from '@vuelidate/core'
-import Dialog from 'primevue/dialog'
-import Divider from 'primevue/divider'
-import InputText from 'primevue/inputtext'
-import Password from 'primevue/password'
-import Calendar from 'primevue/calendar'
+import { reactive, ref } from 'vue';
+import { email, required } from '@vuelidate/validators';
+import { useVuelidate } from '@vuelidate/core';
+import Dialog from 'primevue/dialog';
+import Divider from 'primevue/divider';
+import InputText from 'primevue/inputtext';
+import Password from 'primevue/password';
+import Calendar from 'primevue/calendar';
 
 const state = reactive({
   name: '',
   email: '',
   password: '',
   accept: null,
-})
+});
 
 const rules = {
   name: { required },
   email: { required, email },
   password: { required },
   accept: { required },
-}
+};
 
-const submitted = ref(false)
-const showMessage = ref(false)
-const date = ref()
+const submitted = ref(false);
+const showMessage = ref(false);
+const date = ref();
 
-const v$ = useVuelidate(rules, state)
+const v$ = useVuelidate(rules, state);
 
 const resetForm = () => {
-  state.name = ''
-  state.email = ''
-  state.password = ''
+  state.name = '';
+  state.email = '';
+  state.password = '';
   // state.date = null;
-  state.accept = null
-  submitted.value = false
-}
+  state.accept = null;
+  submitted.value = false;
+};
 
 const toggleDialog = () => {
-  showMessage.value = !showMessage.value
+  showMessage.value = !showMessage.value;
 
-  if (!showMessage.value)
-    resetForm()
-}
+  if (!showMessage.value) resetForm();
+};
 
 const handleSubmit = (isFormValid: boolean) => {
-  submitted.value = true
+  submitted.value = true;
 
-  if (!isFormValid)
-    return
+  if (!isFormValid) return;
 
-  toggleDialog()
-}
+  toggleDialog();
+};
 </script>
 
 <template>
@@ -118,9 +116,7 @@ const handleSubmit = (isFormValid: boolean) => {
                 <template #footer="sp">
                   {{ sp.level }}
                   <Divider />
-                  <p class="mt-2">
-                    Suggestions
-                  </p>
+                  <p class="mt-2">Suggestions</p>
                   <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
                     <li>At least one lowercase</li>
                     <li>At least one uppercase</li>
@@ -149,7 +145,9 @@ const handleSubmit = (isFormValid: boolean) => {
               value="Accept"
               :class="{ 'p-invalid': v$.accept.$invalid && submitted }"
             />
-            <label for="accept" class="ml-3" :class="[{ 'p-error': v$.accept.$invalid && submitted }]">I agree to the terms and conditions*</label>
+            <label for="accept" class="ml-3" :class="[{ 'p-error': v$.accept.$invalid && submitted }]"
+              >I agree to the terms and conditions*</label
+            >
           </div>
           <Button type="submit" label="Submit" class="mt-4" />
         </form>
